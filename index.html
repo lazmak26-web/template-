@@ -16,11 +16,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<!-- Tajawal added: Poppins has no Arabic glyphs -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Orbitron:wght@700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Animatable angle for the rotating borders (fixes the spinning-rectangle bug) */
   @property --angle {
     syntax: '<angle>';
     initial-value: 0deg;
@@ -50,7 +48,6 @@
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* ====== Background video ====== */
   .video-bg {
     position: fixed;
     inset: 0;
@@ -66,7 +63,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;          /* real "cover", no scale hacks */
+    object-fit: cover;
     opacity: 0;
     transition: opacity 1.2s ease;
   }
@@ -96,7 +93,6 @@
     pointer-events: none;
   }
 
-  /* ====== Particle layer ====== */
   #particles {
     position: fixed;
     inset: 0;
@@ -104,7 +100,6 @@
     pointer-events: none;
   }
 
-  /* ====== Custom cursor (mouse only — never hides the cursor on touch) ====== */
   .cursor-dot, .cursor-ring { display: none; }
 
   @media (hover: hover) and (pointer: fine) {
@@ -141,7 +136,6 @@
     .cursor-ring.down { width: 24px; height: 24px; margin: -12px 0 0 -12px; }
   }
 
-  /* ====== Loader ====== */
   .loader {
     position: fixed;
     inset: 0;
@@ -202,7 +196,6 @@
     50% { opacity: 1; text-shadow: 0 0 20px var(--purple), 0 0 40px var(--cyan); }
   }
 
-  /* ====== Layout ====== */
   .container {
     min-height: 100vh;
     min-height: 100dvh;
@@ -213,7 +206,6 @@
     perspective: 1200px;
   }
 
-  /* ====== Card ====== */
   .card {
     --mx: 50%;
     --my: 50%;
@@ -244,7 +236,6 @@
   }
   .card.tilting { transition: transform 0.1s linear, opacity 1s ease, translate 1s ease; }
 
-  /* Rotating gradient border: rotate the gradient, not the element */
   .card::before {
     content: '';
     position: absolute;
@@ -260,7 +251,6 @@
     animation: rotateAngle 6s linear infinite;
     pointer-events: none;
   }
-  /* Spotlight that follows the pointer */
   .card::after {
     content: '';
     position: absolute;
@@ -275,7 +265,6 @@
 
   @keyframes rotateAngle { to { --angle: 360deg; } }
 
-  /* ====== Avatar ====== */
   .avatar-wrap {
     position: relative;
     width: 120px; height: 120px;
@@ -320,7 +309,6 @@
     50% { transform: translateX(100%); }
   }
 
-  /* ====== Status badge ====== */
   .status {
     display: inline-flex;
     align-items: center;
@@ -344,7 +332,6 @@
   }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  /* ====== Title ====== */
   h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 28px;
@@ -352,7 +339,6 @@
     letter-spacing: 2px;
     margin-bottom: 10px;
     direction: ltr;
-    /* Gradient ends on its start colour so the loop never jumps */
     background: linear-gradient(90deg, var(--purple), var(--cyan), var(--pink), var(--purple));
     background-size: 300% 100%;
     -webkit-background-clip: text;
@@ -380,7 +366,6 @@
     animation: blink 0.8s infinite;
   }
 
-  /* ====== Social icons ====== */
   .social-links {
     display: flex;
     justify-content: center;
@@ -396,7 +381,7 @@
     --lift: 0px;
     --s: 1;
     position: relative;
-    isolation: isolate;      /* keeps the gradient layer inside the button */
+    isolation: isolate;
     width: 68px; height: 68px;
     display: flex;
     justify-content: center;
@@ -441,7 +426,6 @@
   .social-links a:focus-visible .fx::before { opacity: 1; }
   .social-links a:focus-visible { box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--cyan); }
 
-  /* Tooltip */
   .social-links a::after {
     content: attr(data-label);
     position: absolute;
@@ -471,7 +455,6 @@
   .telegram .fx::before { background: linear-gradient(135deg, #0088cc, #00c6ff); }
   .telegram:hover { box-shadow: 0 0 25px rgba(0, 136, 204, 0.7), 0 0 50px rgba(0, 198, 255, 0.4); }
 
-  /* Click ripple */
   .ripple {
     position: absolute;
     width: 10px; height: 10px;
@@ -483,7 +466,6 @@
   }
   @keyframes ripple { to { transform: scale(16); opacity: 0; } }
 
-  /* ====== Action buttons ====== */
   .actions {
     display: flex;
     justify-content: center;
@@ -507,7 +489,6 @@
   .btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
   .btn[hidden] { display: none; }
 
-  /* ====== Footer ====== */
   .footer {
     font-size: 11px;
     color: #8a8a9e;
@@ -518,7 +499,6 @@
   }
   .footer span { color: var(--purple); font-weight: 600; }
 
-  /* ====== Toast ====== */
   .toast {
     position: fixed;
     left: 50%;
@@ -537,7 +517,6 @@
   }
   .toast.show { opacity: 1; translate: -50% 0; }
 
-  /* ====== Responsive ====== */
   @media (max-width: 500px) {
     .card { padding: 32px 22px 24px; border-radius: 20px; }
     h1 { font-size: 22px; }
@@ -551,7 +530,6 @@
     .social-links a { width: 54px; height: 54px; font-size: 22px; }
   }
 
-  /* ====== Reduced motion ====== */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.001ms !important;
@@ -564,11 +542,11 @@
 </head>
 <body>
 
-  <!-- ===== Background video (direct Cloudinary file instead of the player iframe) ===== -->
+  <!-- ✅ الرابط الصحيح ديال Cloudinary -->
   <div class="video-bg" aria-hidden="true">
     <video id="bgVideo" autoplay muted loop playsinline preload="auto"
            poster="https://res.cloudinary.com/t6zzg4qd/video/upload/so_0,q_auto/bg.jpg">
-      <source src="https://res.cloudinary.com/t6zzg4qd/video/upload/q_auto/bg.mp4" type="video/mp4">
+      <source src="https://res.cloudinary.com/t6zzg4qd/video/upload/v1791989666/bg.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -577,19 +555,16 @@
   <div class="cursor-dot" aria-hidden="true"></div>
   <div class="cursor-ring" aria-hidden="true"></div>
 
-  <!-- Loader -->
   <div class="loader" id="loader" role="status" aria-label="Loading">
     <div class="loader-ring"></div>
     <div class="loader-text">LOADING</div>
     <div class="loader-bar"><span id="loaderBar"></span></div>
   </div>
 
-  <!-- Content -->
   <main class="container" id="main">
     <div class="card" id="card">
 
       <div class="avatar-wrap">
-                <!-- To use a photo: replace "L" with <img src="your-photo.jpg" alt="1uci17er"> -->
         <div class="avatar">L</div>
       </div>
 
@@ -649,10 +624,8 @@
   const finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const $ = (s) => document.querySelector(s);
 
-  /* ===== Footer year ===== */
   $('#year').textContent = new Date().getFullYear();
 
-  /* ===== Toast ===== */
   const toastEl = $('#toast');
   let toastTimer;
   function toast(msg) {
@@ -662,7 +635,7 @@
     toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
   }
 
-  /* ===== Loader (with a hard timeout so it can never get stuck) ===== */
+  /* ===== Loader ===== */
   const loader = $('#loader');
   const bar = $('#loaderBar');
   let progress = 0;
@@ -688,7 +661,7 @@
     const wait = Math.max(0, 900 - (performance.now() - startTime));
     setTimeout(reveal, wait);
   });
-  setTimeout(reveal, 3500); // fallback if a resource hangs
+  setTimeout(reveal, 3500);
 
   /* ===== Background video ===== */
   const video = $('#bgVideo');
@@ -700,7 +673,7 @@
     }, { once: true });
     video.addEventListener('error', () => video.remove(), true);
     const p = video.play();
-    if (p && p.catch) p.catch(() => { /* autoplay blocked: poster + gradient stay visible */ });
+    if (p && p.catch) p.catch(() => {});
 
     soundBtn.addEventListener('click', () => {
       video.muted = !video.muted;
@@ -713,28 +686,32 @@
     video.remove();
   }
 
-  /* ===== Typing effect (emoji-safe) ===== */
+  /* ===== Typing effect ===== */
   const typingEl = $('#typingText');
   const texts = [
     'تابعني على مواقع التواصل 👇',
     'اشترك في القناة و لا تنسى الإشعارات 🔔',
     'شكراً على الزيارة ❤️'
   ];
-  // Split into graphemes so emojis are never cut in half
   const split = (s) => (window.Intl && Intl.Segmenter)
     ? Array.from(new Intl.Segmenter('ar', { granularity: 'grapheme' }).segment(s), (x) => x.segment)
     : Array.from(s);
   const chars = texts.map(split);
   let textIndex = 0, charIndex = 0, deleting = false;
 
+  /* ✅ الحل: syntax error تم إصلاحه */
   function startTyping() {
     if (reduceMotion) {
-        typingEl.textContent = texts[textIndex];
+      typingEl.textContent = texts[textIndex];
+      setTimeout(() => {
+        textIndex = (textIndex + 1) % texts.length;
+        startTyping();
       }, 4000);
       return;
     }
     tick();
   }
+
   function tick() {
     const current = chars[textIndex];
     charIndex += deleting ? -1 : 1;
@@ -752,7 +729,7 @@
     setTimeout(tick, deleting ? 35 : 70);
   }
 
-  /* ===== Custom cursor (mouse only) ===== */
+  /* ===== Custom cursor ===== */
   if (finePointer && !reduceMotion) {
     document.body.classList.add('custom-cursor');
     const dot = $('.cursor-dot');
@@ -786,7 +763,7 @@
     });
   }
 
-  /* ===== 3D tilt + spotlight on the card ===== */
+  /* ===== 3D tilt + spotlight ===== */
   const card = $('#card');
   if (finePointer && !reduceMotion) {
     card.addEventListener('pointermove', (e) => {
@@ -806,7 +783,7 @@
     });
   }
 
-  /* ===== Magnetic icons + click ripple ===== */
+  /* ===== Magnetic icons + ripple ===== */
   document.querySelectorAll('.social-links a').forEach((a) => {
     if (finePointer && !reduceMotion) {
       a.addEventListener('pointermove', (e) => {
@@ -854,7 +831,7 @@
         toast('تم نسخ الرابط ✅');
       }
     } catch (err) {
-      if (err && err.name !== 'AbortError') toast('ما قدرناش ننسخو الرابط — انسخه من شريط العنوان');
+      if (err && err.name !== 'AbortError') toast('ما قدرناش ننسخو الرابط');
     }
   });
 
@@ -889,7 +866,7 @@
       const p = particles[i];
       const dx = p.x - pointer.x, dy = p.y - pointer.y;
       const d2 = dx * dx + dy * dy;
-      if (d2 < 14400) {               // push away from the pointer (120px)
+      if (d2 < 14400) {
         const f = (14400 - d2) / 14400 * 0.6;
         const d = Math.sqrt(d2) || 1;
         p.x += (dx / d) * f; p.y += (dy / d) * f;
@@ -932,7 +909,6 @@
     window.addEventListener('pointerleave', () => { pointer.x = pointer.y = -9999; });
   }
 
-  /* ===== Pause heavy work when the tab is hidden ===== */
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       if (rafId) cancelAnimationFrame(rafId);
