@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Links</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    overflow: hidden;
+  }
+
+  /* اللودينغ */
+  .loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s;
+  }
+
+  .loader.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* المحتوى */
+  .container {
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .social-links a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: scale(0);
+    transition: transform 0.3s;
+    border-radius: 50%;
+  }
+
+  .social-links a:hover::before {
+    transform: scale(1);
+  }
+
+  .social-links a:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+
+  .tiktok { background: #000; }
+  .instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  }
+  .telegram { background: #0088cc; }
+</style>
+</head>
+<body>
+
+  <!-- اللودينغ -->
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- الصفحة -->
+  <div class="container">
+    <h1>مرحبا بيك</h1>
+    <p>تبعني على مواقع التواصل</p>
+    <div class="social-links">
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@YOUR_USERNAME" target="_blank" class="tiktok" aria-label="TikTok">
+        <i class="fab fa-tiktok"></i>
+      </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/YOUR_USERNAME" target="_blank" class="instagram" aria-label="Instagram">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <!-- Telegram -->
+      <a href="https://t.me/YOUR_USERNAME" target="_blank" class="telegram" aria-label="Telegram">
+        <i class="fab fa-telegram"></i>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hide');
+      }, 1000); // 1 ثانية لودينغ
+    });
+  </script>
+
+</body>
+</html>
