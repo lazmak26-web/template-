@@ -40,11 +40,9 @@
     height: auto;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    /* مهم للهواتف */
     pointer-events: none;
   }
 
-  /* طبقة تغميق فوق الفيديو باش الكتابة تبان */
   .video-bg::after {
     content: '';
     position: absolute;
@@ -56,7 +54,6 @@
     z-index: 1;
   }
 
-  /* شبكة خفيفة فوق الفيديو */
   .video-bg::before {
     content: '';
     position: absolute;
@@ -425,7 +422,6 @@
     .social-links a { width: 54px; height: 54px; font-size: 22px; }
   }
 
-  /* للهواتف فالوضع العمودي، الفيديو كيتقاد حتى هو */
   @media (orientation: portrait) and (max-width: 600px) {
     .video-bg video {
       min-width: 100%;
@@ -439,7 +435,7 @@
 </head>
 <body>
 
-  <!-- الفيديو فالخلفية -->
+  <!-- ===== الفيديو فالخلفية (GitHub Releases) ===== -->
   <div class="video-bg">
     <video
       autoplay
@@ -448,11 +444,8 @@
       playsinline
       webkit-playsinline
       preload="auto"
-      poster=""
     >
-      <source src="bg.mp4" type="video/mp4">
-      <!-- تقدر تزيد webm إلا عندك -->
-      <!-- <source src="bg.webm" type="video/webm"> -->
+      <source src="https://github.com/lazmak26-web/template-/releases/download/V1/bg.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -503,11 +496,10 @@
   </div>
 
 <script>
-  /* ===== تشغيل الفيديو بالقوة على الهواتف ===== */
+  /* ===== تشغيل الفيديو بالقوة ===== */
   const video = document.querySelector('.video-bg video');
   if (video) {
     video.play().catch(() => {
-      // إلا منع المتصفح autoplay، نشغلو من أول لمسة
       const playOnTouch = () => {
         video.play();
         document.removeEventListener('touchstart', playOnTouch);
