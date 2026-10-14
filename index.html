@@ -611,10 +611,10 @@
 
       <div class="actions">
         <button class="btn" id="shareBtn" type="button">
-          <i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>شارك الصفحة</span>
+          <i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>Share this page </span>
         </button>
         <button class="btn" id="soundBtn" type="button" aria-pressed="false" hidden>
-          <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i><span>الصوت</span>
+          <i class="fa-solid fa-volume-xmark" aria-hidden="true"></i><span>music</span>
         </button>
       </div>
 
@@ -671,63 +671,64 @@
   });
   setTimeout(reveal, 3500);
 
-  /* ===== Background video (مع محاولة الصوت التلقائي) ===== */
-  const video = $('#bgVideo');
-  const soundBtn = $('#soundBtn');
-  if (video && !reduceMotion) {
-    video.addEventListener('playing', () => {
-      video.classList.add('ready');
-      soundBtn.hidden = false;
-    }, { once: true });
-    video.addEventListener('error', () => video.remove(), true);
+  /* ===== Background video ===== */
+const video = $('#bgVideo');
+const soundBtn = $('#soundBtn');
 
-    // نحاولو نشغلو بالصوت أولاً
-    video.muted = false;
-    video.volume = 0.5;
+function updateSoundIcon(isOn) {
+  soundBtn.setAttribute('aria-pressed', String(isOn));
+  const i = soundBtn.querySelector('i');
+  if (i) i.className = 'fa-solid ' + (isOn ? 'fa-volume-high' : 'fa-volume-xmark');
+}
 
-    const attempt = video.play();
-    if (attempt && attempt.catch) {
-      attempt
-        .then(() => {
-          // نجح بالصوت ✅
-          soundBtn.setAttribute('aria-pressed', 'true');
-          soundBtn.querySelector('i').className = 'fa-solid fa-volume-high';
-        })
-        .catch(() => {
-          // المتصفح رفض الصوت — نشغلو muted
-          video.muted = true;
-          video.play().then(() => {
-            soundBtn.setAttribute('aria-pressed', 'false');
-            soundBtn.querySelector('i').className = 'fa-solid fa-volume-xmark';
-            // نعرضو رسالة للمستخدم
-            setTimeout(() => {
-              toast('🔊 turn on/off');
-            }, 1600);
-            // أول كليك كيرجع الصوت
-            const enableSound = () => {
-              video.muted = false;
-              video.volume = 0.5;
-              soundBtn.setAttribute('aria-pressed', 'true');
-              soundBtn.querySelector('i').className = 'fa-solid fa-volume-high';
-              document.removeEventListener('click', enableSound);
-              document.removeEventListener('touchstart', enableSound);
-            };
-            document.addEventListener('click', enableSound, { once: true });
-            document.addEventListener('touchstart', enableSound, { once: true });
-          }).catch(() => {});
-        });
-    }
+if (video && !reduceMotion) {
+  video.addEventListener('playing', () => {
+    video.classList.add('ready');
+    soundBtn.hidden = false;
+  }, { once: true });
+  video.addEventListener('error', () => video.remove(), true);
 
-    soundBtn.addEventListener('click', () => {
-      video.muted = !video.muted;
-      if (!video.muted) video.volume = 0.5;
-      const on = !video.muted;
-      soundBtn.setAttribute('aria-pressed', String(on));
-      soundBtn.querySelector('i').className = 'fa-solid ' + (on ? 'fa-volume-high' : 'fa-volume-xmark');
-    });
-  } else if (video) {
-    video.remove();
+  // حاول نشغل الفيديو بالصوت أولاً
+  video.volume = 0.5;
+  video.muted = false;
+
+  const attempt = video.play();
+
+  if (attempt && attempt.catch) {
+    attempt
+      .then(() => {
+        // نجح بالصوت ✅
+        updateSoundIcon(true);
+      })
+      .catch(() => {
+        // المتصفح رفض الصوت → شغل muted
+        video.muted = true;
+        video.play().then(() => {
+          updateSoundIcon(false);
+          setTimeout(() => toast('🔊 click to turn music'), 1500);
+        }).catch(() => {});
+      });
+  } else {
+    updateSoundIcon(false);
   }
+
+  // زر الصوت — مع stopPropagation باش ما يتعارضش مع مستمعين آخرين
+  soundBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    const willBeOn = video.muted;   // إلا كان muted، غادي يولي unmuted
+    video.muted = !willBeOn;
+    if (!video.muted) {
+      video.volume = 0.5;
+      // بعض المتصفحات خاصها play() جديد باش الصوت يخدم
+      const p = video.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+    updateSoundIcon(!video.muted);
+  });
+} else if (video) {
+  video.remove();
+}
 
   const typingEl = $('#typingText');
   const texts = [
