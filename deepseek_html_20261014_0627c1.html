@@ -701,7 +701,7 @@
             soundBtn.querySelector('i').className = 'fa-solid fa-volume-xmark';
             // نعرضو رسالة للمستخدم
             setTimeout(() => {
-              toast('🔊 كليكي باش تسمع الصوت');
+              toast('🔊 turn on/off');
             }, 1600);
             // أول كليك كيرجع الصوت
             const enableSound = () => {
@@ -731,9 +731,9 @@
 
   const typingEl = $('#typingText');
   const texts = [
-    'تابعني على مواقع التواصل 👇',
-    'اشترك في القناة و لا تنسى الإشعارات 🔔',
-    'شكراً على الزيارة ❤️'
+    'My social media accounts 👇',
+    'Message me if you need anything ',
+    ' Thank you for your visit '
   ];
   const split = (s) => (window.Intl && Intl.Segmenter)
     ? Array.from(new Intl.Segmenter('ar', { granularity: 'grapheme' }).segment(s), (x) => x.segment)
